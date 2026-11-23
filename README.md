@@ -1,5 +1,7 @@
 # mcp-tool-idempotency
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/igor-vii/mcp-tool-idempotency/badge)](https://scorecard.dev/viewer/?uri=github.com/igor-vii/mcp-tool-idempotency)
+
 [![CI](https://github.com/tripl3tr3s/mcp-tool-idempotency/actions/workflows/ci.yml/badge.svg)](https://github.com/tripl3tr3s/mcp-tool-idempotency/actions/workflows/ci.yml)
 ![coverage](https://img.shields.io/badge/coverage-%E2%89%A590%25-brightgreen)
 ![types](https://img.shields.io/badge/types-included-blue)

@@ -2,7 +2,7 @@ name: Scorecard supply-chain security
 on:
   branch_protection_rule:
   schedule:
-    - cron: "40 23 * * 4"
+    - cron: '30 3 * * 2'
   push:
     branches: [ "main" ]
   workflow_dispatch:
@@ -14,34 +14,32 @@ jobs:
     name: Scorecard analysis
     runs-on: ubuntu-latest
     permissions:
-      # Needed to upload the results to code-scanning repo.
       security-events: write
-      # Needed to publish results and get a badge (see publish_results below).
       id-token: write
       contents: read
-
+      issues: read
+      pull-requests: read
+      checks: read
     steps:
-      - name: "Checkout code"
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-
-      - name: "Run analysis"
-        uses: ossf/scorecard-action@v2.4.1
+      - name: Run analysis
+        uses: ossf/scorecard-action@v2.6.0
         with:
           results_file: results.sarif
           results_format: sarif
-          # Publish results to scorecard.dev (public badge + REST API)
           publish_results: true
-
-      - name: "Upload artifact"
+      - name: Upload artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: SARIF file
           path: results.sarif
           retention-days: 5
-
-      - name: "Upload to code-scanning"
+      - name: Upload to code-scanning
+        if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
